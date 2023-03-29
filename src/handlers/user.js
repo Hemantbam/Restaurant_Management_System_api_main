@@ -33,4 +33,24 @@ export const signIn = async (req, res) => {
   const token = createJWT(user);
   res.json({ token });
 };
+export const createFoodItem = async (req, res) => {
+  const user = await prisma.foodItem.create({
+    data: {
+      food_Name: req.body.foodname,
+      category: req.body.foodCategory,
+      Ingredient: req.body.foodIngredient,
+      price: req.body.foodPrice,
+      // photo_Src: req.body.photoSrc == null
+    },
+
+  });
+
+  res.json({ data:user  });
+};
+
+export const getFoodItem = async (req, res) => {
+  const user = await prisma.foodItem.findMany();
+
+  res.json({ data:user  });
+};
 

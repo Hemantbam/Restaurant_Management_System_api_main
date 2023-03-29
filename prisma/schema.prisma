@@ -20,5 +20,23 @@ model User {
   createdAt       DateTime @default(now())
 }
 
+model Order {
+  id           String   @id @default(uuid())
+  food_name    String   @db.VarChar(100)
+  quantity     Int
+  description  String
+  timestamp    DateTime @default(now())
+  table_number Int
+  price        Float
+  isCompleted  Boolean  @default(false)
+}
 
+model foodItem{
+  id String  @id @default(uuid())
+  food_Name  String  @db.VarChar(100)
+  category  String   @db.VarChar(100)
+  Ingredient String? 
+  price     Float  
+}
 
+ 
