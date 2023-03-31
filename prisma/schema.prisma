@@ -31,12 +31,12 @@ model Order {
   isCompleted  Boolean  @default(false)
 }
 
-model foodItem{
+model FoodItem{
   id String  @id @default(uuid())
   food_Name  String  @db.VarChar(100)
-  category  String   @db.VarChar(100)
+  category   String   @db.VarChar(100)
   Ingredient String? 
-  price     Float  
+  price      Float  
 }
 
  
