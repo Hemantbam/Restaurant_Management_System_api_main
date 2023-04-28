@@ -1,5 +1,4 @@
 import prisma from "../db.js";
-import { comparePassword, createJWT, hashPassword } from "../modules/auth.js"; // import several functions from external modules 
 
 export const createOrderList = async (req, res) => {  // Add the order to the databse 
     const order = await prisma.Order.create({  //prisma create function used to add new records

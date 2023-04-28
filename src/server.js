@@ -4,6 +4,7 @@ import cors from "cors";
 import { signIn, signUp } from "./handlers/user.js";
 import { createFoodItem, getFoodItem, deleteFoodItem , updateFoodItem } from "./handlers/foodItem.js";
 import { createOrderList ,getOrderList, updateOrderList, delteeOrderList} from "./handlers/order.js";
+import { createEmployee ,getEmployee, updateEmployee, deleteEmployee} from "./handlers/Employee.js";
 
 const app = express();
 
@@ -35,6 +36,10 @@ app.get("/getOrderList",getOrderList);
 app.put("/updateOrderList", updateOrderList);
 app.delete("/delteeOrderList", delteeOrderList);
 
+app.post("/createEmployee",createEmployee);
+app.get("/getEmployee",getEmployee);
+app.put("/updateEmployee", updateEmployee);
+app.delete("/deleteEmployee", deleteEmployee);
 
 
 export default app;
