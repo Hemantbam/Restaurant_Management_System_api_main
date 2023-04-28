@@ -1,7 +1,5 @@
 import prisma from "../db.js";
-import { comparePassword, createJWT, hashPassword } from "../modules/auth.js"; // import several functions from external modules 
-
-
+ 
 export const createFoodItem = async (req, res) => {  // Add the new food item to the databse 
     const user = await prisma.foodItem.create({  //prisma create function used to add new records
       data: {
