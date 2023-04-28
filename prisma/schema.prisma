@@ -39,4 +39,17 @@ model FoodItem{
   price      Float  
 }
 
+model Employee {
+  id           String   @id @default(uuid())
+  f_Name        String   @db.VarChar(100)
+  l_Name       String   @db.VarChar(100)
+  work_as      String
+  email        String
+  password     String
+  createdAt    DateTime @default(now())
+  phone_number   @db.VarChar(10)
+  adminref     String
+  adminA     String
+}
+
  
