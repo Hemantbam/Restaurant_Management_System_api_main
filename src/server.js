@@ -5,6 +5,8 @@ import { signIn, signUp } from "./handlers/user.js";
 import { createFoodItem, getFoodItem, deleteFoodItem , updateFoodItem } from "./handlers/foodItem.js";
 import { createOrderList ,getOrderList, updateOrderList, delteeOrderList} from "./handlers/order.js";
 import { createEmployee ,getEmployee, updateEmployee, deleteEmployee} from "./handlers/Employee.js";
+import { signInEmployee } from "./handlers/employeeAuth.js";
+import { getTotalEmployee, getTotalFoodItems, getTotalSales} from "./handlers/getTotal.js";
 
 const app = express();
 
@@ -22,6 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.post("/signup", signUp);
 app.post("/signIN", signIn);
+app.get("/", signIn);
 
 // Food Item
 
@@ -41,5 +44,12 @@ app.get("/getEmployee",getEmployee);
 app.put("/updateEmployee", updateEmployee);
 app.delete("/deleteEmployee", deleteEmployee);
 
+//Total number details
+app.get("/getTotalEmployee/:id", getTotalEmployee);
+app.get("/getTotalFoodItems/:id", getTotalFoodItems);
+app.get("/getTotalSales/:id", getTotalSales);
+
+// Authenticate the Employee loh in 
+app.post("/signinemployee", signInEmployee);
 
 export default app;
