@@ -1,51 +1,120 @@
 import prisma from "../db.js";
 
-export const createOrderList = async (req, res) => {  // Add the order to the databse 
-    const order = await prisma.Order.create({  //prisma create function used to add new records
-      data: {
-        food_name: req.body.foodName,
-        quantity: req.body.foodQuantity,
-        description: req.body.foodDescription,
-        table_number: req.body.orderTableNumber,
-        isCompleted: req.body.orderCompleted ,
-        price:req.body.orderfoodPrice 
-      },
-  
+export const createOrder = async (req, res) => {
+  try {
+    const data = await prisma.order.createMany({
+      data: req.body,
     });
-  
-    res.json({ data:order  });
-  };
+    res.json({ data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
+export const getOrder = async (req, res) => {
+  try {
+    const data = await prisma.order.findMany({
+      where: {
+        isCompleted: false,
+        adminid: req.params.id,
+      },
+    });
+    res.json({ data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
-  export const getOrderList = async (req, res) => {  // Show the order list data to clint side from the database
-    const order = await prisma.Order.findMany();  // prisma findMany function used to show all available order list
-    res.json({ data:order  });
-  };
+export const getBilling = async (req, res) => {
+  try {
+    const data = await prisma.order.findMany({
+      where: {
+        isBilled: false,
+        isCompleted: true,
+        adminid: req.params.id,
+      },
+    });
+    res.json({ data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
+export const getUnserved = async (req, res) => {
+  try {
+    const data = await prisma.order.findMany({
+      where: {
+        isServed: false,
+        isCompleted: true,
+        adminid: req.params.id,
+      },
+    });
+    res.json({ data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
-  export const updateOrderList = async (req, res) => {  // update the order data to database using the order ID by the user
-    const order = await prisma.Order.update({   // prisma update function used to update the data to the database
+export const getComplete = async (req, res) => {
+  try {
+    const data = await prisma.order.findMany({
+      where: {
+        isServed: true,
+        isCompleted: true,
+        isBilled: true,
+        adminid: req.params.id,
+      },
+    });
+    res.json({ data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const updateOrder = async (req, res) => {
+  try {
+    const data = await prisma.order.update({
       where: {
         id: req.body.id,
       },
       data: {
-        food_Name: req.body.foodName,
-        quantity: req.body.foodQuantity,
-        description: req.body.foodDescription,
-        table_number: req.body.orderTableNumber,
-        isCompleted: req.body.orderCompleted 
+        isCompleted: req.body.isCompleted,
       },
     });
-  
-    res.json({ data:order  });
-  };
+    res.json({ data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
+export const updateServe = async (req, res) => {
+  try {
+    const data = await prisma.order.update({
+      where: {
+        id: req.body.id,
+      },
+      data: {
+        isServed: req.body.isServed,
+      },
+    });
+    res.json({ data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
-  export const delteeOrderList = async (req, res) => { // delete the customer order item  by the unique food item ID
-   const order =  await prisma.Order.delete({
-     where: {
-       id: req.body.id,    
-     }
-   });
-   res.json({ data:order  });
-  };
+export const createBill = async (req, res) => {
+  try {
+    const data = await prisma.order.update({
+      where: {
+        id: req.body.id,
+      },
+      data: {
+        isBilled: req.body.isBilled,
+      },
+    });
+    res.json({ data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
