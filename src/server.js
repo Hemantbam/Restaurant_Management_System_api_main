@@ -3,7 +3,7 @@ import morgan from "morgan";
 import cors from "cors";
 import { signIn, signUp } from "./handlers/user.js";
 import { createFoodItem, getFoodItem, deleteFoodItem , updateFoodItem } from "./handlers/foodItem.js";
-import { createOrderList ,getOrderList, updateOrderList, delteeOrderList} from "./handlers/order.js";
+import { createOrder ,getOrder, updateOrder, updateServe, getUnserved, getComplete} from "./handlers/order.js";
 import { createEmployee ,getEmployee, updateEmployee, deleteEmployee} from "./handlers/Employee.js";
 import { signInEmployee } from "./handlers/employeeAuth.js";
 import { getTotalEmployee, getTotalFoodItems, getTotalSales} from "./handlers/getTotal.js";
@@ -32,12 +32,14 @@ app.post("/createFoodItem", createFoodItem);
 app.get("/getFoodItem", getFoodItem);
 app.delete("/deleteFoodItem", deleteFoodItem);
 app.put("/updateFoodItem", updateFoodItem);
+app.get("/unserved/:id", getUnserved);
+app.get("/complete/:id", getComplete);
 
 //Order list
-app.post("/createOrderList",createOrderList);
-app.get("/getOrderList",getOrderList);
-app.put("/updateOrderList", updateOrderList);
-app.delete("/delteeOrderList", delteeOrderList);
+app.post("/createOrderList",createOrder);
+app.get("/getOrderList",getOrder);
+app.put("/updateOrderList", updateOrder);
+app.put("/updateServe", updateServe);
 
 app.post("/createEmployee",createEmployee);
 app.get("/getEmployee",getEmployee);
@@ -52,4 +54,13 @@ app.get("/getTotalSales/:id", getTotalSales);
 // Authenticate the Employee loh in 
 app.post("/signinemployee", signInEmployee);
 
+// Admin Dashboard functionalities 
+app.post("/signup", signUp);
+app.post("/signin", signIn);
+app.get("/getTotalEmployees/:id", getTotalEmployee);
+app.get("/getTotalFoodItems/:id", getTotalFoodItems);
+app.get("/getTotalSales/:id", getTotalSales);
+
+app.put("/createBill", createBill);
+app.get("/getBilling/:id", getBilling);
 export default app;
